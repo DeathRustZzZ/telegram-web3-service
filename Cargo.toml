@@ -1,6 +1,10 @@
 [workspace]
 
-members = [
-
-]
+members = ["services/telegram-bot-service"]
 resolver = "3"
+
+[workspace.dependencies]
+
+tokio = { version = "1.50.0", features = ["macros", "rt-multi-thread"] }
+
+axum = { version = "0.8.8", features = ["json", "macros"] }
