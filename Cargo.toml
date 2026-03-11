@@ -1,6 +1,6 @@
 [workspace]
 
-members = ["services/telegram-bot-service"]
+members = ["services/telegram-bot-service", "services/web-services"]
 resolver = "3"
 
 [workspace.dependencies]
