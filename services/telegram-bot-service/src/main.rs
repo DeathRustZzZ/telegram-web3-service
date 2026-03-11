@@ -9,11 +9,11 @@ async fn main() {
     tracing::debug!("Config loaded successfully");
 
     tracing::info!("Initializing database connection pool...");
-    let pool = init_pool(&config.database_url).await;
+    let _pool = init_pool(&config.database_url).await;
     tracing::debug!("Database connection pool initialized successfully");
 
     tracing::info!("Initializing Telegram bot...");
-    let bot = teloxide::Bot::new(config.bot_token.clone());
+    let _bot = teloxide::Bot::new(config.bot_token.clone());
     tracing::debug!(
         "Telegram bot initialized successfully with token: {}",
         config.bot_token
