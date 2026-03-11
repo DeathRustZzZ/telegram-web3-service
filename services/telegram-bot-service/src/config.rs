@@ -1,3 +1,4 @@
+use anyhow::{Context, Result};
 use std::env;
 use tracing_subscriber::{EnvFilter, layer::SubscriberExt, util::SubscriberInitExt};
 
@@ -31,24 +32,17 @@ pub struct AppConfig {
 }
 
 impl AppConfig {
-    pub fn load_from_environment() -> Self {
-        // Читаем переменные окружения и создаём конфигурацию.
-        dotenvy::dotenv().ok();
+    pub fn load_from_environment() -> Result<Self> {
         tracing::debug!("Loading configuration from environment variables...");
 
-        // Загрузка токена Telegram-бота.
         let bot_token =
-            env::var("BOT_TOKEN").expect("BOT_TOKEN is not set in environment variables");
-        tracing::debug!("Loaded BOT_TOKEN from environment variables.");
+            env::var("BOT_TOKEN").context("BOT_TOKEN is not set in environment variables")?;
 
-        // Загрузка токена базы данных
         let database_url =
-            env::var("DATABASE_URL").expect("DATABASE_URL is not set in environment variables");
-        tracing::debug!("Loaded DATABASE_URL from environment variables.");
-
-        Self {
+            env::var("DATABASE_URL").context("DATABASE_URL is not set in environment variables")?;
+        Ok(Self {
             bot_token,
             database_url,
-        }
+        })
     }
 }
